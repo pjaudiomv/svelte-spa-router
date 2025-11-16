@@ -497,9 +497,9 @@ if (restoreScrollState) {
     // This is removed in the destroy() invocation below
     window.addEventListener('popstate', popStateChanged)
 
-    afterUpdate(() => {
+    $effect(() => {
         restoreScroll(previousScrollState)
-    })
+    });
 }
 
 // Always have the latest value of loc
