@@ -270,18 +270,48 @@ import {parse} from 'regexparam'
  * }
  * ````
  */
-export let routes = {}
+// export let routes = {}
 
 /**
  * Optional prefix for the routes in this router. This is useful for example in the case of nested routers.
  */
-export let prefix = ''
+// export let prefix = ''
 
 /**
  * If set to true, the router will restore scroll positions on back navigation
  * and scroll to top on forward navigation.
  */
-export let restoreScrollState = false
+// export let restoreScrollState = false
+
+let {
+    /**
+     * Dictionary of all routes, in the format `'/path': component`.
+     *
+     * For example:
+     * ````js
+     * import HomeRoute from './routes/HomeRoute.svelte'
+     * import BooksRoute from './routes/BooksRoute.svelte'
+     * import NotFoundRoute from './routes/NotFoundRoute.svelte'
+     * routes = {
+     *     '/': HomeRoute,
+     *     '/books': BooksRoute,
+     *     '*': NotFoundRoute
+     * }
+     * ````
+     */
+    routes = {},
+
+    /**
+     * Optional prefix for the routes in this router. This is useful for example in the case of nested routers.
+     */
+    prefix = '',
+
+    /**
+     * If set to true, the router will restore scroll positions on back navigation
+     * and scroll to top on forward navigation.
+     */
+    restoreScrollState = false
+} = $props()
 
 /**
  * Container for a route: path, component
@@ -447,7 +477,10 @@ async function dispatchNextTick(name, detail) {
 let previousScrollState = null
 
 // Update history.scrollRestoration depending on restoreScrollState
-$: history.scrollRestoration = restoreScrollState ? 'manual' : 'auto'
+$effect(() => {
+    history.scrollRestoration = restoreScrollState ? 'manual' : 'auto'
+})
+
 let popStateChanged = null
 if (restoreScrollState) {
     popStateChanged = (event) => {
