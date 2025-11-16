@@ -252,7 +252,7 @@ function scrollstateHistoryHandler(href) {
 {/if}
 
 <script>
-import {onDestroy, createEventDispatcher, afterUpdate} from 'svelte'
+import {onDestroy, createEventDispatcher} from 'svelte'
 import {parse} from 'regexparam'
 
 /**
