@@ -240,12 +240,12 @@ function scrollstateHistoryHandler(href) {
     <svelte:component
     this={component}
     params={componentParams}
-    {...props}
+    {...componentProps}
     />
 {:else}
     <svelte:component
     this={component}
-    {...props}
+    {...componentProps}
     />
 {/if}
 
@@ -474,7 +474,7 @@ else {
 // Props for the component to render
 let component = null
 let componentParams = null
-let props = {}
+let componentProps = {}
 
 // Event dispatcher from Svelte
 const dispatch = createEventDispatcher()
@@ -575,7 +575,7 @@ const unsubscribeLoc = loc.subscribe(async (newLoc) => {
                 component = obj.loading
                 componentObj = obj
                 componentParams = obj.loadingParams
-                props = {}
+                componentProps = {}
 
                 // Trigger the routeLoaded event for the loading component
                 // Create a copy of detail so we don't modify the object for the dynamic route (and the dynamic route doesn't modify our object too)
@@ -614,7 +614,7 @@ const unsubscribeLoc = loc.subscribe(async (newLoc) => {
         }
 
         // Set static props, if any
-        props = routesList[i].props
+        componentProps = routesList[i].props
 
         // Dispatch the routeLoaded event then exit
         // We need to clone the object on every event invocation so we don't risk the object to be modified in the next tick
