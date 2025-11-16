@@ -525,10 +525,10 @@ if (restoreScrollState) {
 }
 
 // Always have the latest value of loc
-let lastLoc = $state(null)
+let lastLoc = null
 
 // Current object of the component loaded
-let componentObj = $state(null)
+let componentObj = null
 
 // Handle hash change events
 // Listen to changes in the $loc store and update the page
