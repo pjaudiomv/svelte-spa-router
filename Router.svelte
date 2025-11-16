@@ -472,9 +472,9 @@ else {
 }
 
 // Props for the component to render
-let component = null
-let componentParams = null
-let componentProps = {}
+let component = $state(null)
+let componentParams = $state(null)
+let componentProps = $state({})
 
 // Event dispatcher from Svelte
 const dispatch = createEventDispatcher()
@@ -496,7 +496,7 @@ async function dispatchNextTick(name, detail) {
 }
 
 // If this is set, then that means we have popped into this var the state of our last scroll position
-let previousScrollState = null
+let previousScrollState = $state(null)
 
 // Update history.scrollRestoration depending on restoreScrollState
 $effect(() => {
@@ -525,10 +525,10 @@ if (restoreScrollState) {
 }
 
 // Always have the latest value of loc
-let lastLoc = null
+let lastLoc = $state(null)
 
 // Current object of the component loaded
-let componentObj = null
+let componentObj = $state(null)
 
 // Handle hash change events
 // Listen to changes in the $loc store and update the page
