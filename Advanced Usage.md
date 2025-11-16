@@ -248,10 +248,10 @@ const routes = {
 
 In case a condition fails, the router emits the `conditionsFailed` event, with the same `detail` dictionary.
 
-You can listen to the `conditionsFailed` event and perform actions in case no route wasn't loaded because of a failed pre-condition:
+You can listen to the `conditionsFailed` event and perform actions in case no route wasn't loaded because of a failed pre-condition. In Svelte 5, event handlers are passed as props with the `on` prefix:
 
 ````svelte
-<Router {routes} on:conditionsFailed={conditionsFailed} on:routeLoaded={routeLoaded} />
+<Router {routes} onconditionsFailed={conditionsFailed} onrouteLoaded={routeLoaded} />
 
 <script>
 // Handles the "conditionsFailed" event dispatched by the router when a component can't be loaded because one of its pre-condition failed
@@ -310,35 +310,7 @@ const routes = {
 
 ## `routeEvent` event
 
-The custom `routeEvent` event can be used to bubble events from a component displayed by the router, to the router's parent component.
-
-For example, assume that your Svelte component `App` contains the router's component `Router`. Inside the router, the current view is displaying the `Foo` component. If `Foo` emitted an event, `Router` would receive it and would ignore it by default
-
-Using the custom event **`routeEvent`**, instead, allows your components within the router (such as `Foo`) to bubble an event to the `Router` component's parent.
-
-Example for `App.svelte`:
-
-```svelte
-<Router {routes} on:routeEvent={routeEvent} />
-<script>
-import Router from 'svelte-spa-router'
-import Foo from './Foo.svelte'
-const routes = {'*': Foo}
-function routeEvent(event) {
-    // Do something
-}
-</script>
-```
-
-Example for `Foo.svelte`:
-
-```svelte
-<button on:click={() => dispatch('routeEvent', {foo: 'bar'})}>Hello</button>
-<script>
-import {createEventDispatcher} from 'svelte'
-const dispatch = createEventDispatcher()
-</script>
-```
+> **Note:** The `routeEvent` mechanism has been removed in Svelte 5, as automatic event forwarding is no longer supported. Instead, you should explicitly pass callback props to your components or use other patterns like stores or context for communication between components.
 
 ## `routeLoading` and `routeLoaded` events
 
@@ -387,13 +359,13 @@ event.detail = {
 }
 ```
 
-For example:
+For example (Svelte 5 syntax with event handler props):
 
 ````svelte
 <Router 
   {routes}
-  on:routeLoading={routeLoading}
-  on:routeLoaded={routeLoaded}
+  onrouteLoading={routeLoading}
+  onrouteLoaded={routeLoaded}
 />
 
 <script>

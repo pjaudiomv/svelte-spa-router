@@ -1,6 +1,6 @@
 ///<reference types="svelte" />
 
-import {SvelteComponent, Component} from 'svelte'
+import {Component} from 'svelte'
 import {Readable} from 'svelte/store'
 
 /** Dictionary with route details passed to the pre-conditions functions, as well as the `routeLoading` and `conditionsFailed` events */
@@ -170,40 +170,52 @@ export type RouteLoadingEvent = RouterEvent<RouteDetail>
 export type RouteLoadedEvent = RouterEvent<RouteDetailLoaded>
 
 /**
+ * Router component props
+ */
+export interface RouterProps {
+    /**
+     * Dictionary of all routes, in the format `'/path': component`.
+     *
+     * For example:
+     * ````js
+     * import HomeRoute from './routes/HomeRoute.svelte'
+     * import BooksRoute from './routes/BooksRoute.svelte'
+     * import NotFoundRoute from './routes/NotFoundRoute.svelte'
+     * routes = {
+     *     '/': HomeRoute,
+     *     '/books': BooksRoute,
+     *     '*': NotFoundRoute
+     * }
+     * ````
+     */
+    routes: RouteDefinition
+    /**
+     * Optional prefix for the routes in this router. This is useful for example in the case of nested routers.
+     */
+    prefix?: string | RegExp
+    /**
+     * If set to true, the router will restore scroll positions on back navigation
+     * and scroll to top on forward navigation.
+     */
+    restoreScrollState?: boolean
+    /**
+     * Event handler for when a route fails its pre-conditions
+     */
+    onconditionsFailed?: (event: ConditionsFailedEvent) => void
+    /**
+     * Event handler for when a route is loading
+     */
+    onrouteLoading?: (event: RouteLoadingEvent) => void
+    /**
+     * Event handler for when a route has loaded
+     */
+    onrouteLoaded?: (event: RouteLoadedEvent) => void
+}
+
+/**
  * Router component
  */
-export default class Router extends SvelteComponent {
-    // Props
-    $$prop_def: {
-        /**
-         * Dictionary of all routes, in the format `'/path': component`.
-         *
-         * For example:
-         * ````js
-         * import HomeRoute from './routes/HomeRoute.svelte'
-         * import BooksRoute from './routes/BooksRoute.svelte'
-         * import NotFoundRoute from './routes/NotFoundRoute.svelte'
-         * routes = {
-         *     '/': HomeRoute,
-         *     '/books': BooksRoute,
-         *     '*': NotFoundRoute
-         * }
-         * ````
-         */
-        routes: RouteDefinition,
-        /**
-         * Optional prefix for the routes in this router. This is useful for example in the case of nested routers.
-         */
-        prefix?: string | RegExp,
-        /**
-         * If set to true, the router will restore scroll positions on back navigation
-         * and scroll to top on forward navigation.
-         */
-        restoreScrollState?: boolean
-    }
-
-    $on(event: 'routeEvent', callback: (event: CustomEvent) => void): () => void
-    $on(event: 'conditionsFailed', callback: (event: ConditionsFailedEvent) => void): () => void
-    $on(event: 'routeLoading', callback: (event: RouteLoadingEvent) => void): () => void
-    $on(event: 'routeLoaded', callback: (event: RouteLoadedEvent) => void): () => void
+export default class Router {
+    constructor(options: { target: Element; props: RouterProps })
+    $$prop_def: RouterProps
 }

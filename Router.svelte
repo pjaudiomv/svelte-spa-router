@@ -240,13 +240,11 @@ function scrollstateHistoryHandler(href) {
     <svelte:component
     this={component}
     params={componentParams}
-    on:routeEvent
     {...props}
     />
 {:else}
     <svelte:component
     this={component}
-    on:routeEvent
     {...props}
     />
 {/if}
@@ -310,7 +308,22 @@ let {
      * If set to true, the router will restore scroll positions on back navigation
      * and scroll to top on forward navigation.
      */
-    restoreScrollState = false
+    restoreScrollState = false,
+
+    /**
+     * Event callback fired when route conditions fail
+     */
+    onconditionsFailed = undefined,
+
+    /**
+     * Event callback fired when a route is loading
+     */
+    onrouteLoading = undefined,
+
+    /**
+     * Event callback fired when a route has loaded
+     */
+    onrouteLoaded = undefined
 } = $props()
 
 /**
@@ -471,6 +484,15 @@ async function dispatchNextTick(name, detail) {
     // Execute this code when the current call stack is complete
     await tick()
     dispatch(name, detail)
+    
+    // Also call the event callback prop if it exists
+    if (name === 'conditionsFailed' && onconditionsFailed) {
+        onconditionsFailed({ detail })
+    } else if (name === 'routeLoading' && onrouteLoading) {
+        onrouteLoading({ detail })
+    } else if (name === 'routeLoaded' && onrouteLoaded) {
+        onrouteLoaded({ detail })
+    }
 }
 
 // If this is set, then that means we have popped into this var the state of our last scroll position

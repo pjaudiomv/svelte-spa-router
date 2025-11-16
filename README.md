@@ -15,7 +15,7 @@
 [![npm](https://img.shields.io/npm/v/svelte-spa-router.svg)](https://www.npmjs.com/package/svelte-spa-router)
 [![GitHub](https://img.shields.io/github/license/ItalyPaleAle/svelte-spa-router.svg)](https://github.com/ItalyPaleAle/svelte-spa-router/blob/master/LICENSE.md)
 
-This module is a router for [Svelte 3 and 4](https://github.com/sveltejs/svelte) applications, specifically optimized for Single Page Applications (SPA).
+This module is a router for [Svelte 5](https://github.com/sveltejs/svelte) applications, specifically optimized for Single Page Applications (SPA).
 
 Main features:
 
@@ -67,7 +67,7 @@ The sample will be running at http://localhost:5050
 
 ## Starter template
 
-You can find a starter template with Svelte 4 and svelte-spa-router at [italypaleale/svelte-spa-router-template](https://github.com/italypaleale/svelte-spa-router-template).
+You can find a starter template with Svelte and svelte-spa-router at [italypaleale/svelte-spa-router-template](https://github.com/italypaleale/svelte-spa-router-template).
 
 To use the template:
 
@@ -80,7 +80,7 @@ More information can be found on the [template's repo](https://github.com/italyp
 
 ## Using svelte-spa-router
 
-You can include the router in any project using Svelte 3 or 4.
+You can include the router in any project using Svelte 5.
 
 ### Install from NPM
 
